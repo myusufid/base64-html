@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Base64 Encoder Tool</title>
+  </head>
+  <body>
+    <h1>Base64 Encoder Tool</h1>
+    <label for="input">Input:</label>
+    <br>
+    <textarea id="input" rows="10" cols="50" oninput="updateOutput()"></textarea>
+    <br>
+    <label for="output">Output:</label>
+    <br>
+    <textarea id="output" rows="10" cols="50"></textarea>
+    <script>
+      function updateOutput() {
+        const input = document.getElementById('input').value;
+        const lines = input.split('\n');
+        const outputLines = lines.map(line => btoa(line));
+        const output = outputLines.join('\n');
+        document.getElementById('output').value = output;
+      }
+
+      document.getElementById('input').addEventListener('input', function() {
+        clearTimeout(window.timer);
+        window.timer = setTimeout(updateOutput, 500);
+      });
+      
+      document.getElementById('output').addEventListener('input', function() {
+        const input = document.getElementById('output').value;
+        const lines = input.split('\n');
+        const inputLines = lines.map(line => atob(line));
+        const output = inputLines.join('\n');
+        document.getElementById('input').value = output;
+      });
+    </script>
+  </body>
+</html>
